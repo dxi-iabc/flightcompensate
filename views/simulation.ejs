@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>iCompensation</title>
+<link href="/img/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <!-- Bootstrap core CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- Add custom CSS here -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css">
+ <style>
+   <style>
+
+#grad1 {
+    background-color: : #9C27B0;
+    background-image: linear-gradient(120deg, #FF4081, #81D4FA)
+}
+
+#msform {
+    text-align: center;
+    position: relative;
+    /*margin-top: 20px*/
+}
+
+#msform fieldset .form-card {
+    background: white;
+    border: 0 none;
+    border-radius: 0px;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 20px 40px 30px 40px;
+    box-sizing: border-box;
+ 
+    margin: 0 3% 20px 3%;
+    position: relative
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    /*padding-bottom: 20px;*/
+    position: relative
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none
+}
+
+#msform fieldset .form-card {
+    text-align: left;
+    color: #9E9E9E
+}
+
+#msform input,
+#msform textarea {
+    padding: 0px 8px 4px 8px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 16px;
+    letter-spacing: 1px
+}
+
+#msform input:focus,
+#msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: none;
+    font-weight: bold;
+    border-bottom: 2px solid skyblue;
+    outline-width: 0
+}
+
+#msform .action-button {
+    width: 100px;
+    background: skyblue;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px
+}
+
+#msform .action-button-previous:hover,
+#msform .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
+}
+
+select.list-dt {
+    border: none;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    padding: 2px 5px 3px 5px;
+    margin: 2px
+}
+
+select.list-dt:focus {
+    border-bottom: 2px solid skyblue
+}
+
+.card {
+    z-index: 0;
+    border: none;
+    border-radius: 0.5rem;
+    position: relative
+}
+
+.fs-title {
+    font-size: 25px;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: left
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey
+}
+
+#progressbar .active {
+    color: #000000
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative
+}
+
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "\f00b"
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "\f129"
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "\f087"
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c"
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: skyblue
+}
+
+.radio-group {
+    position: relative;
+    margin-bottom: 25px
+}
+
+.radio {
+    display: inline-block;
+    width: 204;
+    height: 104;
+    border-radius: 0;
+    background: lightblue;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 8px 2px
+}
+
+.radio:hover {
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3)
+}
+
+.radio.selected {
+    box-shadow: 1px 1px 2px 2px rgba(12, 120, 251, 0.9)
+    
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover
+}
+      </style>
+      
+
+  </head>
+
+  <body style="" data-gr-c-s-loaded="true">
+  <div class="loading" style="display:none">&#8230;Loading</div>
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" style="padding-right:0px"><img class="logo-image d-none d-lg-inline-block" style="box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);" src="/img/IBS_Software.svg" alt="IBS Software" width ="10px"/><span></span></a>
+          <a class="navbar-brand" style="padding-left:0px"><span>Compensation</span></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li class=""><a href="/admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="/getbookinglist"><i class="fa fa-database"></i> Data Mirroing </a></li>
+            <li class="active"><a href="/getsimulation"><i class="fa fa-play"></i> Rule Simulation </a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown messages-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Address: <span class="badge"><%=address%> </span> </a>
+             
+            </li>
+            <li class="dropdown alerts-dropdown">
+              <a href="#" class="dropdown-toggle" > Contarct Balance <span class="badge"><%=balance%></span> </a>
+              
+            </li>
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" >Owner  Bal: <span class="badge"><%=ownerbal%></span></a>
+             
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+
+        <div class="row">
+          <div class="col-lg-12">
+           
+            <ol class="breadcrumb">
+              <li><a href="index.html"><i class="fa fa-play"></i> Simulate</a></li>
+              
+            </ol>
+           
+          </div>
+        </div><!-- /.row -->
+
+        <div class="row justify-content-center">
+          
+     <div class="container-fluid" id="grad1">
+      <div class="row justify-content-center mt-0">
+        <div class="col-lg-12 text-center p-0 mt-0 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-0 mb-3">
+              
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                        <form id="msform" style="margin-top:0px;">
+                            <!-- progressbar -->
+                            <ul id="progressbar" style="margin-left:-40px">
+                                <li class="active" id="account"><strong>Type</strong></li>
+                                <li id="personal"><strong>Parameters</strong></li>
+                                <li id="payment"><strong>Confirm</strong></li>
+                                <li id="confirm"><strong>Finish</strong></li>
+                            </ul> <!-- fieldsets -->
+                            <fieldset>
+                                <div class="form-card" style="padding-top: 10px;">
+                                    <h2 class="fs-title" style="margin-left:42%;">Select One  </h2>  <div class="btn-group btn-group-justified" data-toggle="buttons">
+
+                                     <div class="radio-group" style="margin-left:15%">
+                                        <div class='radio selected' id="delayradio"   name="simtype" data-value="delay"  value="delay" style="margin-right:30px"  ><img  style="box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);"  src="/img/delay.png" width="280px" height="250px" >
+                                       </div>
+                                        <div class='radio' id="cancelradio"  name="simtype" data-value="cancellation" value="cancel"><img   style="box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);" width="280px" height="250px" src="img/cancel.png" ></div> <br>
+                                    </div>
+                                  <p style="margin-left:40px">  Conversion Rate &nbsp;:  <b>1 ETH  = €140</b>
+                            
+    
+                             </div>
+                                </div> <input type="button" id="firstnext" name="next" class="next action-button" value="Next Step" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card" id="option2Div">
+                                    <h2 class="fs-title" style="margin-top: 0px; margin-bottom: 25px;">Input Data</h2>
+                                    <span id="option2Span">
+                                    
+                                    </span>
+                                </div> 
+                                <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="next" id="nextbtn2setp" class="next action-button" value="Next Step" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card" style="margin-top: -10px;">
+                                    <h2 class="fs-title" id="thrirdStepTitle" style="margin-top:0px">Delay Input Details Confirmation</h2>
+                                    <div class="radio-group">
+                                     
+                                    </div> <label class="pay" id="label1Step3">Selected Option </label> <input type="text" id="distanceStep3Display1" readOnly disabled="true" name="holdername" value="Distance" placeholder="" />
+                                    <div class="row">
+                                        <div class="col-lg-10"> <label class="pay" id="label2Step3">Entered Value</label> <input type="text" id="distanceStep3Display2" readOnly disabled="true" name="cardno" placeholder="" /> </div>
+                                     
+                                    </div>
+                                   
+                                </div> <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="idphase3btn" id="idphase3btnid" class="next action-button" value="Confirm" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title text-center">Compensation Details</h2> 
+                                    <div class="row justify-content-center" style="margin-left:2.5%">
+                                        <h4>Delay Type : <span id="respTypeResp"></span></h4>
+                                        
+                                    </div>
+                                    <div class="row justify-content-center" style="margin-left:2.5%">
+                                        <h4>Compensation Amount : <span id="respAmtResp"></span></h4>
+                                      
+                                    </div>
+                                    </div> <br><br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-7 text-center">
+                                        <input type="button" name="backfirst" id="backfirst" class="action-button" value="Back" />    
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+          
+        </div><!-- /.row -->
+
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+     
+    <script src="/js/web3.min.js"></script>
+ <script>
+  var contractAddress = '<%=OwnerAddress%>';
+var slectedRadio ="";
+var delayOption ="";
+function btnSecondClicked(){
+var title= "Delay Input Details Confirmation";
+$("#label2Step3").text("Selected Option");
+$("#label2Step3").text("Enetered Value") ;
+var value1="";
+var value2="";
+if(slectedRadio == "Cancel"){
+    title= "Cancel Input Details Confirmation";
+    $("#label2Step3").text("Ticket Amount");
+    $("#label2Step3").text("Travel Hours") ;
+    value1 = $("#tickerNumberId").val();
+    value2 = $("#delayhoursId").val();
+}else{
+
+   value1= $("#delayoptionid").val();
+   value2= $("#distancehourvalueid").val();
+}
+$("#distanceStep3Display1").val(value1);
+$("#distanceStep3Display2").val(value2);
+
+$("#thrirdStepTitle").text(title);
+
+
+}
+
+
+function getAccounts(web3 ,callback) {
+      web3.eth.getAccounts((error,result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            callback(result[0]);
+        }
+    
+      })
+    }
+      function setValues(result){
+            if($.trim(contractAddress.toString().toUpperCase()) != $.trim(result.toString().toUpperCase()) )
+                    location.replace(location.origin)
+       }
+      
+
+$(document).ready(async function(){
+
+if (window.ethereum) {
+
+        await ethereum.enable();
+      }
+        
+        if (typeof web3 !== 'undefined') {
+ 
+            window.web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));   
+        }
+
+        
+        web3.currentProvider.publicConfigStore.on('update',function(data,error,){
+          setTimeout(function(){setValues(data.selectedAddress) ; }, 2000);
+          
+        });
+  
+var current_fs, next_fs, previous_fs; //fieldsets
+var opacity;
+$("#backfirst").on("click", function(){
+  location.reload();
+});
+
+
+$("#idphase3btnid").on("click", function(){
+
+    var distance = 0;
+    var hours    = 0 ;
+    var amount =  0;
+    var status  = "Delayed";
+
+   if(slectedRadio == "Cancel"){
+
+        status = "Cancelled" ;
+        amount = parseInt($("#tickerNumberId").val()) ;
+        hours  = parseInt($("#delayhoursId").val()) ;
+        if($("#delayhoursId").val().indexOf(".") >0){
+
+            if(hours == 6) hours = 7 ;
+        }
+
+
+   }else{
+
+      var optSelected = $("#delayoptionid").val() ;
+      if( optSelected == "distance"){
+          distance =  parseInt($("#distancehourvalueid").val()) ;
+           
+            if($("#distancehourvalueid").val().indexOf(".") >0 ){
+
+                if(distance == 4000 ) distance = 5000;
+            }
+
+      }else{
+                   
+            
+            hours =  parseInt($("#distancehourvalueid").val()) ;
+
+            if($("#distancehourvalueid").val().indexOf(".") >0 ){
+
+                if(hours == 4 ) hours = 5;
+            }
+
+      }
+
+
+   }
+
+     $(".loading").show() ;
+       $.post("/getsimulatedetails",
+        {
+          status: status,
+          distance:distance,
+          hours:hours,
+          amount:amount
+        },
+        function (data, status) {
+          console.log("Data: " ,(data) , "\nStatus: " ,status);
+          $(".loading").hide() ;
+          if (status== "success") {
+           
+            $("#respAmtResp").text(data.compamount);
+            $("#respTypeResp").text(data.type);
+           
+
+          }
+        });
+
+});
+
+$(".next").click(function(event){
+
+var id =$(event.target).attr("id") ;
+
+if(id == "nextbtn2setp"){
+btnSecondClicked();
+
+}
+
+if(id == "firstnext"){
+
+
+     if($("#delayradio").hasClass("selected") ){
+        slectedRadio ="Delay"
+     }
+      if($("#cancelradio").hasClass("selected") ){
+        slectedRadio ="Cancel"
+     }
+    
+    var innerHtml= "";
+    if(slectedRadio == "Cancel"){
+          innerHtml+='<input type="text" name="ticketamount" id="tickerNumberId" placeholder="Enter Ticket Amount in Euro" />';
+          innerHtml+='<input type="text" name="delayhours"   id="delayhoursId" placeholder="Enter Delay Hours" />';
+    } 
+
+    if(slectedRadio =="Delay"){
+        var innerHtml='<select class="form-control delayoptionSlect" id="delayoptionid" style="margin-bottom:30px"> <option value="distance"> Distance</option> <option value="hours">Hours</option>  </select>';
+         
+         innerHtml+='<input type="text" name="distancehourvalue" id="distancehourvalueid" placeholder="Enter  Value" />';
+    }
+    $("#option2Span").html(innerHtml);
+    delayOption = "distance";
+    $("select.delayoptionSlect").on("change",function(){
+   
+     delayOption = $(".delayoptionSlect").val();
+   
+    });
+                                     
+}
+
+current_fs = $(this).parent();
+
+next_fs = $(this).parent().next();
+
+//Add Class Active
+$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+//show the next fieldset
+next_fs.show();
+//hide the current fieldset with style
+current_fs.animate({opacity: 0}, {
+step: function(now) {
+// for making fielset appear animation
+opacity = 1 - now;
+
+current_fs.css({
+'display': 'none',
+'position': 'relative'
+});
+next_fs.css({'opacity': opacity});
+},
+duration: 600
+});
+});
+
+$(".previous").click(function(){
+
+current_fs = $(this).parent();
+previous_fs = $(this).parent().prev();
+
+//Remove class active
+$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+//show the previous fieldset
+previous_fs.show();
+
+//hide the current fieldset with style
+current_fs.animate({opacity: 0}, {
+step: function(now) {
+// for making fielset appear animation
+opacity = 1 - now;
+
+current_fs.css({
+'display': 'none',
+'position': 'relative'
+});
+previous_fs.css({'opacity': opacity});
+},
+duration: 600
+});
+});
+
+$('.radio-group .radio').click(function(){
+$(this).parent().find('.radio').removeClass('selected');
+$(this).addClass('selected');
+});
+
+$(".submit").click(function(){
+return false;
+})
+
+});
+  
+ 
+ 
+    </script>
+</body></html>

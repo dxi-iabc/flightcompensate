@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>iCompensation</title>
+<link href="/img/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <!-- Bootstrap core CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- Add custom CSS here -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+ 
+ 
+
+  </head>
+
+  <body style="" data-gr-c-s-loaded="true">
+  <div class="loading" style="display:none">Loading&#8230;</div>
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" style="padding-right:0px"><img class="logo-image d-none d-lg-inline-block" style="box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);" src="/img/IBS_Software.svg" alt="IBS Software" width ="10px"/><span></span></a>
+          <a class="navbar-brand" style="padding-left:0px"><span>Compensation</span></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li class=""><a href="/admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active"><a href="/getbookinglist"><i class="fa fa-database"></i> Data Mirroing </a></li>
+             <li><a href="/getsimulation"><i class="fa fa-play"></i> Rule Simulation </a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown messages-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Address: <span class="badge"><%=address%> </span> </a>
+             
+            </li>
+            <li class="dropdown alerts-dropdown">
+              <a href="#" class="dropdown-toggle" > Contarct Balance <span class="badge"><%=balance%></span> </a>
+              
+            </li>
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" >Owner  Bal: <span class="badge"><%=ownerbal%></span></a>
+             
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+
+        <div class="row">
+          <div class="col-lg-12">
+           
+            <ol class="breadcrumb">
+              <li><a href="index.html" style="box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);"><i class="fa fa-database"></i> Data Mirroring</a></li>
+          
+            </ol>
+ 
+          </div>
+        </div><!-- /.row -->
+  <div class="row">
+          <div class="col-lg-12 table-responsive">
+
+           <div class="panel panel-primary" style=" border-color: #00aaad;box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);">
+              <div class="panel-heading"  style="color: #fff; background-color: #00aaad; border-color: #00aaad;">
+                <h3 class="panel-title"><i class="fa fa-database"></i> Booking Data Migration Details</h3>
+              </div>
+              <div class="panel-body">
+     
+       
+
+       	<table class="table table-bordered table-hover tablesorter" style="border-collapse:collapse;">
+				    <thead>
+				        <tr>
+				            
+				            <th align="center" style="text-align: center; vertical-align: middle;">Flight No</th>
+				            <th align="left" style="text-align: left; vertical-align: middle;">PNR </th>
+                            <th align="center" style="text-align: left; vertical-align: middle;">Name</th>
+                             <th align="center" style="text-align: left; vertical-align: middle;">Date</th>
+				            <th align="center" style="text-align: center; vertical-align: middle;">Quntity</th>
+				            <th align="left" style="text-align: left; vertical-align: middle;">Address</th>
+				            
+				        </tr>
+				  </thead>
+				<tbody id="tbodyDet">
+			       <% for(var i=0; i < data.length; i++) {%> 	
+                   <td align="center" style="text-align: center; vertical-align: middle;"><%=data[i].FlightNo%></td>
+		           <td align="left" style="text-align: left; vertical-align: middle;"><%=data[i].PNR%></td>
+                   <td align="left" style="text-align: left; vertical-align: middle;"><%=data[i].Name%></td>
+                     <td align="center" style="text-align: left; vertical-align: middle;"><%= new Date().toDateString()%></td>
+				   <td align="center" style="text-align: center; vertical-align: middle;"><%=data[i].quantity%></td>
+				   <td align="left" style="text-align: left; vertical-align: middle;"><%=data[i].address%></td></tr> 
+				   <%}%>
+                </tbody>
+				</table>        
+        
+        </div>
+        </div>
+        </div><!-- /.row -->
+        
+
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+    <!-- JavaScript -->
+    
+
+    <!-- Page Specific Plugins -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="/js/web3.min.js"></script>
+  <script>
+ var contractAddress = '<%=address%>';
+ window.addEventListener("load" , 
+ async function() {
+     if (window.ethereum) {
+
+        await ethereum.enable();
+      }
+        
+        if (typeof web3 !== 'undefined') {
+ 
+            window.web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));   
+        }
+
+        
+        web3.currentProvider.publicConfigStore.on('update',function(data,error,){
+          setTimeout(function(){setValues(data.selectedAddress) ; }, 2000);
+          
+        });
+
+ });
+
+ function getAccounts(web3 ,callback) {
+      web3.eth.getAccounts((error,result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            callback(result[0]);
+        }
+    
+      })
+    }
+      function setValues(result){
+            if($.trim(contractAddress.toString().toUpperCase()) != $.trim(result.toString().toUpperCase()) )
+                    location.replace(location.origin)
+       }
+      
+  </script>
+</body>
+</html>

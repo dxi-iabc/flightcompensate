@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>iCompensation</title>
+<link href="/img/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <!-- Bootstrap core CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- Add custom CSS here -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+ <style>
+
+
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+.custom-control {
+    position: relative;
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 1.5rem;
+}
+ </style>
+ 
+
+  </head>
+
+  <body style="" data-gr-c-s-loaded="true">
+    <div id="snackbar">Some text some message..</div>
+  <div class="loading" style="display:none">Loading&#8230;</div>
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" style="padding-right:0px"><img class="logo-image d-none d-lg-inline-block" style="box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);" src="/img/IBS_Software.svg" alt="IBS Software" width ="10px"/><span></span></a>
+          <a class="navbar-brand" style="padding-left:0px"><span>Compensation</span></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li class=""><a href="/admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li ><a href="/getbookinglist"><i class="fa fa-database"></i> Data Mirroing </a></li>
+             <li><a href="/getsimulation"><i class="fa fa-play"></i> Rule Simulation </a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown messages-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Address: <span class="badge"><%=address%> </span> </a>
+             
+            </li>
+            <li class="dropdown alerts-dropdown">
+              <a href="#" class="dropdown-toggle" > Contarct Balance <span class="badge"><%=balance%></span> </a>
+              
+            </li>
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" >Owner  Bal: <span class="badge"><%=ownerbal%></span></a>
+             
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+
+        <div class="row">
+          <div class="col-lg-12">
+           
+            <ol class="breadcrumb">
+              <li><a href="index.html" style="box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);"><i class="fa fa-ticket"></i> Passenger Booking Details</a></li>
+          
+            </ol>
+ 
+          </div>
+        </div><!-- /.row -->
+  <div class="row">
+          <div class="col-lg-12 table-responsive">
+
+           <div class="panel panel-primary" style=" border-color: #00aaad;box-shadow: 0 8px 35px 0 rgba(50,50,93,0.1), 0 5px 15px 0 rgba(0,0,0,0.07);">
+              <div class="panel-heading"  style="color: #fff; background-color: #00aaad; border-color: #00aaad;">
+                <h3 class="panel-title"><i class="fa fa-plane" aria-hidden="true"></i> Flight & Paasenger Details</h3>
+              </div>
+              <div class="panel-body">
+     
+       
+
+       	<table class="table table-bordered table-hover tablesorter" style="border-collapse:collapse;">
+				    <thead>
+
+                    	<tr>
+				            
+				            <th align="center" style="text-align: center; vertical-align: middle;">Flight No </th>
+				            <th align="center" style="text-align: center; vertical-align: middle;"><%= flightno%> </th>
+                            
+				            
+				        </tr>
+				        <tr>
+				            
+				            <th align="center" style="text-align: center; vertical-align: middle;">Duration </th>
+				            <th align="center" style="text-align: center; vertical-align: middle;" id="hours"><%= hours%> </th>
+                            
+				            
+				        </tr>
+                             <tr>
+				            
+				            <th align="center" style="text-align: center; vertical-align: middle;">Distance</th>
+				            <th align="center" style="text-align: center; vertical-align: middle;" id="distance"><%= distance%> </th>
+                            
+				            
+				        </tr>
+                             <tr>
+				            
+				            <th align="center" style="text-align: center; vertical-align: middle;">Flight Type</th>
+				            <th align="center" style="text-align: center; vertical-align: middle;" id="flighttype"><%=flighttype%> </th>
+                            
+				            
+				        </tr>
+				  </thead>
+				<tbody id="tbodyDet">
+			      
+                </tbody>
+				</table>        
+        
+        </div>
+
+
+        
+          <div class="col-lg-12 table-responsive" style="padding:0px;margin:0px;width:100%">
+
+     
+       
+<div class="panel-body" style="padding:0px;margin:0px;width:100%">
+       	<table class="table table-bordered table-hover tablesorter" style="border-collapse:collapse;border-collapse:collapse;padding-left: -10px;margin-left: 0px;margin-right: 0px;margin-bottom:0px">
+				    <thead>
+				        <tr>
+				            
+				            <th align="center" style="text-align: center; vertical-align: middle;">PNR</th>
+				            <th align="center" style="text-align: left; vertical-align: middle;width:30%">Name </th>
+                            <th align="center" style="text-align: left; vertical-align: middle;">Date </th>
+				            <th align="center" style="text-align: center; vertical-align: middle;">Quntity</th>
+				            <th align="center" style="text-align: left; vertical-align: middle;">Address</th>
+                             <th align="center" style="text-align: center; vertical-align: middle;">Check</th>
+            
+				            
+				        </tr>
+				  </thead>
+				<tbody id="tbodyDet">
+			       <% for(var i=0; i < data.length; i++) {%> 	
+
+		           <td align="center" style="text-align: center; vertical-align: middle;"><%=data[i].PNR%></td>
+                   <td align="center" style="text-align: left; vertical-align: middle;"><%=data[i].Name%></td>
+                   <td align="center" style="text-align: left; vertical-align: middle;"><%= new Date().toLocaleDateString();%></td>
+                   
+				   <td align="center" style="text-align: center; vertical-align: middle;"><%=data[i].quantity%></td>
+				   <td align="center" style="text-align: left; vertical-align: middle;"><%=data[i].address%></td>
+                  
+                   <td align="center" style="text-align: center; vertical-align: middle;"><div class="custom-control custom-checkbox mb-3"><input type="checkbox" class="custom-control-input" value='<%=data[i].PNR%>|<%=data[i].address%>|<%= flightno%>' id="<%=data[i].PNR%><%= flightno%><%=data[i].address%>" name=<%=data[i].PNR%>></div></td>
+                 
+                   </tr> 
+				   <%}%>
+                </tbody>
+				</table>        
+        </div>
+        </div>
+
+        </div>
+
+               <div class="panel-body"> <button type="button" class="btn btn-primary" id="claimAutoId" onclick="claimRequest()">Auto Compensation</button>
+<button type="button" class="btn btn-primary">Allow Compensation Claim</button> </div>
+
+      
+        </div><!-- /.row -->
+        
+
+
+
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+    <!-- JavaScript -->
+    
+
+    <!-- Page Specific Plugins -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="/js/web3.min.js"></script>
+  <script>
+var contractAddress = '<%=contractaddress%>';
+var paidrows ="<%=paidrows%>";
+var flightNo = "<%= flightno%>";
+$( document ).ready(function() {
+    
+    data =paidrows.split(",")
+    var boxes = $(":checkbox");
+
+    for(var i =0; i < data.length; i++){
+       
+        for(var cnt =0 ; cnt < boxes.length ; cnt ++){
+           var id = $(boxes[cnt]).attr("id").trim();
+           
+            if(id.toUpperCase().trim() === data[i].trim().toUpperCase()){
+                 
+                 $(boxes[cnt]).attr("disabled", true);
+                  $(boxes[cnt]).parent().parent().parent().css({ 'background-color' : 'grey'})
+
+            }
+              
+        }
+       
+    }
+    $(".loading").show();
+    $.get("https://demo-flight-status.herokuapp.com/fligtdetails/"+flightNo ,async function( res ) {
+        
+
+          for (var key in res) {
+       
+    
+				if(key != undefined) {
+                    if(res[key].result.distance == undefined)
+                    $("#distance").text("")
+                    else
+                    $("#distance").text(res[key].result.distance + " KM")
+                    
+                    $("#hours").text(res[key].result.hours + " Hrs");
+                    flighttype = res[key].result.flighttype ;
+                     if(flighttype == "I" || flighttype == "i")
+                       flighttype= "International";
+                      else
+                      flighttype ="Domestic";
+                     $("#flighttype").text(flighttype)
+                    
+                }}
+               $(".loading").hide();
+    });
+
+});
+
+function claimRequest() {
+
+      $(".loading").show() ;
+
+      var boxes = $(":checkbox:checked");
+      var details=new Array();
+      $("#claimAutoId").prop('disabled', true);
+       
+      for(var i = 0; i < boxes.length; i++){
+
+          var data = $(boxes[i]).val().split("|");
+          details.push({"pnr" : data[0].trim(),"address" : data[1].trim() , "flightno" : data[2].trim()});
+
+      }
+      console.log("Details selected",details)
+
+      
+     $.post("/autoclaimdetails",
+        {
+        
+
+          data: JSON.stringify(details)
+        
+
+        },
+        function (tx, status) {
+          console.log("Data: " + tx.result + "\nStatus: " + status);
+          $("#claimAutoId").prop('disabled', false);
+          if (status == "success") {
+           
+          var x = document.getElementById("snackbar");
+          $("#snackbar").html(tx.result);
+          x.className = "show";
+          
+          
+          if(tx.error == false){
+
+            $("#snackbar").html(" Amount Transferring. Please wait...");
+            setTimeout(function(){  $(".loading").hide(); $("#snackbar").html("Refreshing. Please wait..."); 
+            setTimeout(function(){   location.reload();}, 5000);
+          }, 7000);
+              
+            }
+            if(tx.error == true){
+              $(".loading").hide();
+              setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
+            } 
+            
+
+          }else{
+            $("#snackbar").text(status);
+            $(".loading").hide() ;
+          }
+        });
+    }
+  </script>
+</body>
+</html>

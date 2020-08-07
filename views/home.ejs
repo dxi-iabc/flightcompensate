@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <title>iCompensation</title>
+      <link href="/img/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet"/>
+
+    <script src="/js/web3.min.js"></script>
+</head>
+
+<body>
+  <div id="snackbar">Some text some message..</div>
+  <div class="loading" style="display:none">Loading&#8230;</div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    
+        <a class="navbar-brand" href="#"><img class="logo-image d-none d-lg-inline-block" src="/img/IBS_Software.svg" alt="IBS Software">Compensation
+            
+        </a>
+     
+        
+        <h5 style="padding-left: 30%;color: #fff;">Address :
+            <span id="addressbar"  class="badge badge-primary" style="font-size: .99rem;color: #fff;"> </span>
+            <h5 id="pointslabel" clas="" style="color: #fff;font-size: .99rem;margin-left: 10px;margin-right: 2px;">Points : </h5>
+            <span id="points" class="badge badge-primary" style="color: #fff;"> </span>
+
+            <h5 id="ballabel" clas="" style="color: #fff;font-size: .99rem;margin-left: 10px;margin-right: 2px;">Amount : </h5>
+            <span id="bal" class="badge badge-primary" style="color: #fff;"> </span>
+            
+        </h5>
+    </nav>
+    
+    <main class="container" style="padding-top: 20px;">
+        <h5 style="padding-bottom: 20px;font-weight: bold">Enter Claim Details </h5>
+
+        <form >
+            <div class="form-group">
+              <label for="flightno" style="font-size: 1.2rem;">Flight #</label>
+              <input type="text" class="form-control" id="flightno" aria-describedby="flightno" placeholder="Enter Flight#">
+             </div>
+          
+            <div class="form-group">
+                <label for="pnrno" style="font-size: 1.2rem;">PNR</label>
+                <input type="text" class="form-control" id="pnrno" placeholder="Enter PNR">
+            </div>
+             <div class="input-group date">
+               <label for="pnrno" style="font-size: 1.2rem;">Date of Travel </label>
+              <input type="text" class="form-control" id="datepicker" placeholder="MM/DD/YYYY">
+           </div>
+           <div style="margin-top:20px"> 
+            <button type="button" id="claimBtnId" class="btn btn-primary">Claim</button>
+            </div>
+          </form>
+       
+      
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+  
+    <script>
+    var contractAddress = '<%=contractaddress%>';
+    document.getElementById("claimBtnId").addEventListener("click", claimRequest, false);
+    window.addEventListener("load" , 
+
+    async function loaddata() {
+      $.ajaxSetup({
+        cache: false
+    });
+      var date = new Date();
+      var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+      $('#datepicker').datepicker({
+                                    format: "yyyy/mm/dd",
+                                    todayHighlight: true,
+                                    startDate: today,
+                                    autoclose: true
+                                    }                           
+                                    );
+        $('#datepicker').datepicker('setDate', today);
+      $(".loading").show() ;
+      
+      if (window.ethereum) {
+
+        await ethereum.enable();
+      }
+        
+        if (typeof web3 !== 'undefined') {
+ 
+            window.web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));   
+        }
+          
+        web3.currentProvider.publicConfigStore.on('update',function(data,error,){
+    
+          setValues(data.selectedAddress) ;
+        });
+        getAccounts(window.web3,function(result) {
+          if($.trim(contractAddress) == $.trim(result) )
+            location.replace(location.origin+"/admin")
+          setValues(result);
+           });
+       
+      
+        
+
+    });
+
+    function setValues(result){
+          $("#addressbar").text(result);
+          
+          if($.trim(contractAddress).toUpperCase() == $.trim(result).toUpperCase() )
+            location.replace(location.origin+"/admin")
+          getBalance(result)
+          getLoyalityPointsRequest();
+
+           
+
+    }
+
+    function getAccounts(web3 ,callback) {
+      web3.eth.getAccounts((error,result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            callback(result[0]);
+        }
+    });
+}
+    
+    function claimRequest() {
+
+      $(".loading").show() ;
+      $("#claimBtnId").prop('disabled', true);
+      $.post("/claimrequest",
+        {
+
+          address: $.trim($("#addressbar").text()),
+          flightno: document.getElementById("flightno").value,
+          pnr: document.getElementById("pnrno").value
+
+
+        },
+        function (tx, status) {
+          console.log("Data: " + tx.result + "\nStatus: " + status);
+          $("#claimBtnId").prop('disabled', false);
+          if (status == "success") {
+           
+          var x = document.getElementById("snackbar");
+          $("#snackbar").html(tx.result);
+          x.className = "show";
+          
+          
+          if(tx.error == false){
+
+            $("#snackbar").html(" Amount Transferring. Please wait...");
+            setTimeout(function(){  $(".loading").hide(); $("#snackbar").html("Refreshing. Please wait..."); 
+            setTimeout(function(){   location.reload();}, 5000);
+          }, 7000);
+              
+            }
+            if(tx.error == true){
+              $(".loading").hide();
+              setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
+            } 
+            
+
+          }else{
+            $("#snackbar").text(status);
+            $(".loading").hide() ;
+          }
+        });
+    }
+
+    function getLoyalityPointsRequest() {
+      $(".loading").show() ;
+       $.post("/getloyalitypoints",
+        {
+
+          address: $("#addressbar").text()
+
+
+        },
+        function (tx, status) {
+          console.log("Data: " + tx + "\nStatus: " + status);
+          $(".loading").hide() ;
+          if (status == "success") {
+           
+            $("#points").text(tx.points);
+
+          }
+        });
+    }
+
+    function getBalance(account){
+      $.get( "/balance?account="+account, function( data ) {
+      
+       $("#bal").text(data.balance);
+});
+    }
+  function showSnackBar(text) {
+  var x = document.getElementById("snackbar");
+  $("#snackbar").html(text)
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
+   }
+
+  
+
+    </script>
+    </body>
+    </html>

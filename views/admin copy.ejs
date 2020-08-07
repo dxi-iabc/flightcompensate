@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Flight Claim Compensation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/js/web3.min.js"></script>
+    <style>
+ #mySidenav a {
+  position: absolute;
+  left: -80px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+  left: 0;
+}
+
+#about {
+  top: 20px;
+  background-color: #4CAF50;
+}
+
+#blog {
+  top: 80px;
+  background-color: #2196F3;
+}
+
+#projects {
+  top: 140px;
+  background-color: #f44336;
+}
+
+#contact {
+  top: 200px;
+  background-color: #555
+}
+</style>
+</head>
+
+
+
+<body style="background-color: #fdfdfd !important;background-image: url();">
+  <div id="snackbar">Some text some message..</div>
+ <div id="mySidenav" class="sidenav">
+  <a href="#" id="about">About</a>
+  <a href="#" id="blog">Blog</a>
+  <a href="#" id="projects">Projects</a>
+  <a href="#" id="contact">Contact</a>
+</div>
+  <div class="loading" style="display:none">Loading&#8230;</div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a href="/"><img class="logo-image d-none d-lg-inline-block" src="/img/IBS_Software.svg" alt="IBS Software"><img class="logo-image-phone d-inline-block d-lg-none" src="/img/IBS_Software.svg" alt="IBS Software"></a>
+        <a class="navbar-brand" href="#" style="padding-left: 0px;">Claim -Airline 
+            
+        </a>
+     
+        
+        <h5 style="font-size: .99rem;padding-left: 10%;color: #fff; width:15%">Address: </h5>
+            <span id="adminaddressbar"  class="" style="font-size: .99rem;color: #fff;"><%=address%> </span>
+           
+            <h5 id="ballabel" clas="" style="width:20%;padding-left: 2%;color: #fff;font-size: .99rem;"> Contarct  Bal: 
+            <span id="adminbal" class="badge badge-primary" style="color: #fff;"> <%=balance%></span>
+            </h5>
+            <h5 id="ballabel" clas="" style="width:20%;color: #fff;font-size: .99rem;"> Owner  Bal: 
+            <span id="adminbal" class="badge badge-primary" style="color: #fff;"> <%=ownerbal%></span>
+            </h5>
+            
+        
+    </nav>
+    
+    <main class="container" style="overflow:auto; max-height:500px;">
+     <h4 style="margin-top:0px">All Claim Details </h4>
+       
+
+       	<table class="table table-bordered" style="border-collapse:collapse;">
+				    <thead>
+				        <tr>
+				            <th style="text-align: center; vertical-align: middle;"></th>
+				            <th style="text-align: center; vertical-align: middle;">Flight No</th>
+				            <th style="text-align: center; vertical-align: middle;">Passenger PNR </th>
+				            <th style="text-align: center; vertical-align: middle;">Address</th>
+				            <th style="text-align: center; vertical-align: middle;">Name</th>
+				            
+				        </tr>
+				    </thead>
+				    <tbody id="tbodyDet">
+			    		
+				    </tbody>
+				</table>
+                 </main>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  
+    <script>
+var contractAddress = '<%=address%>';
+ window.addEventListener("load" , 
+   
+    async function loaddata() {
+      $.ajaxSetup({
+        cache: false
+    });
+
+    
+    $('.accordion-toggle').click(function(){
+	$('.hiddenRow').hide();
+	$(this).next('tr').find('.hiddenRow').show();
+   
+});
+     
+       
+      if (window.ethereum) {
+
+        await ethereum.enable();
+      }
+        
+        if (typeof web3 !== 'undefined') {
+ 
+            window.web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));   
+        }
+
+         await getAccounts(window.web3, setValues);
+         getDisplay();
+        web3.currentProvider.publicConfigStore.on('update',function(data,error,){
+          setTimeout(function(){setValues(data.selectedAddress) ; }, 2000);
+          
+        });
+       
+       });
+        function setValues(result){
+            if($.trim(contractAddress.toString().toUpperCase()) != $.trim(result.toString().toUpperCase()) )
+                    location.replace(location.origin)
+       }
+      
+      function getAccounts(web3 ,callback) {
+      web3.eth.getAccounts((error,result) => {
+        if (error) {
+            console.log(error);
+        } else {
+            callback(result[0]);
+        }
+    });
+}
+        
+ function getDisplay(){
+   
+     var tabel = "";
+       $(".loading").show() ;
+      $.get( "/getcompdetails", function( res ) {
+           var data = res.data;
+           
+           for(var i = 0 ; i < data.length; i++) {
+            
+                
+                extra = JSON.parse(data[i].receipt);
+            
+                  tabel = tabel + '<tr data-toggle="collapse" data-target="#demo' + i +'" class="accordion-toggle"> '+
+				            '<td align="center" class="tablebtn"><button> + </button></td> '+
+				            '<td align="center" style="text-align: center; vertical-align: middle;">' + data[i].flightno+'</td>'+ 
+				             '<td align="center" style="text-align: center; vertical-align: middle;">' + data[i].pnr + '</td>'+
+				             '<td align="center" style="text-align: center; vertical-align: middle;">'+ data[i].passaddress +'</td>'+
+				             '<td align="center" style="text-align: center; vertical-align: middle;">'+  data[i].passname +'</td></tr> ' ;
+                     tabel = tabel + '<tr><td colspan="5"  class="hiddenRow">'+
+				          	'<div id="demo'+ i +'" class="accordian-body collapse p-3" style="margin-left: 20px"> '+
+				            		'<p>BlockHash : <span style="font-size: 1.0rem;">'+extra.blockHash+'</span> </p>'+
+					            	'<p>Transaction Hash : <span style="font-size: 1.0rem;">'+ data[i].hash+'</span> </p></div>';
+					            	 
+				   
+               
+           }
+          
+       $("#tbodyDet").html(tabel);
+      $(".loading").hide() ;
+       $("tr.accordion-toggle").on("click", function(event){
+
+         var label =  $(event.target).html();
+        if(label.indexOf("-") <0 && label.indexOf("button") < 0){
+
+         var div =   $(event.target).closest('tr').next().find("div");
+         var pnr =  $(event.target).closest('tr').children().eq(2).html();
+         if($(div).children().length < 5){
+          getCompDetails(pnr, div);
+           $(".loading").show() ;
+         }
+         
+
+        }
+        
+         var tr =$(event.target).closest('tr');
+           lablel =$(tr).attr("aria-expanded");
+          $(event.target).closest('tr').children().eq(0).find("button").html("-");
+        
+         
+        if(lablel != undefined && lablel.toString().trim() == "true"){
+
+          
+          $(event.target).closest('tr').children().eq(0).find("button").html("+");
+        
+         
+
+        }
+       });
+       $(".tablebtn").on("click", function(event){
+        
+
+       
+         var label =  $(event.target).html();
+         var len =   $.trim(label).length;    
+         var div =   $(event.target).closest('tr').next().find("div");
+         var pnr =  $(event.target).closest('tr').children().eq(2).html();
+         if($(div).children().length < 5){
+          getCompDetails(pnr, div);
+           $(".loading").show() ;
+         }
+        if($.trim(label.toString()).indexOf("+") >= 0 ){
+
+          if($.trim(label.toString()) == "+")
+          $(event.target).html("-");
+          else
+          $(event.target).find("button").html("-");
+
+        }else{
+
+          if($.trim(label.toString()) == "-")
+          $(event.target).html("+");
+          else
+          $(event.target).find("button").html("+");
+        }
+
+    });
+      
+        });
+    }
+
+ function getCompDetails(pnr, div){
+    
+      $.get( "/getcompensationstatus?pnr="+pnr, function( data ) {
+      
+         $(".loading").hide() ;
+         let label="Success";
+
+         if(new String(data.status).toUpperCase() == "FALSE") label ="Failure";
+        $(div).append('<p>Payment Status : <span style="color:#0062e3;font-size: 1.1rem;">'+ label +'</span> </p>'+
+					  '<p>Ether Amount : <span style="font-size: 1.0rem;">'+ data.amount+'</span> </p>' +
+             '<p>Type : <span style="font-size: 1.0rem;">'+ data.type+'</span> </p>'+
+             '<p>Delay Hours : <span style="font-size: 1.0rem;">'+ data.HoursDelay+'</span> </p>'+
+             '<p>Transaction Time  : <span style="font-size: 1.0rem;">'+ data.time+'</span> </p>'+
+             '<p>Fiat Currency Amount: <span style="font-size: 1.0rem;">'+ data.FiatCurrenyAmount+'</span> </p>');
+
+
+     });
+ }
+ 
+    </script>
+    </body>
+    <html>

@@ -1,0 +1,8 @@
+{
+	"newtork": {
+		"url": "http://localhost:9545",
+		"dataAddress": "0x639AA936CD29142FEc313e4Fbc0319542C238dD3",
+		"appAddress": "0x8cCEBF39AE4eD79340E205DeF056C7C9Ec37C2F9",
+		"owneraddress": "0x8eeCBEBd35352026532eFe6EBF0160eDf2337D0c"
+	}
+}
